@@ -40,7 +40,7 @@ export class Service {
         return await sequelize.transaction(async (t) => {
             const model = await Departamento.findByPk(id)
             const exits = await Empleado.findOne({where: { idDepartamento: id }})
-            if(exits) return { status: 400, message: 'el departamento tiene miembros activos y no puede ser eliminado' }
+            if(exits) return false
             if (!model) return { status: 400, message: 'el departamento no se encuentra registrado' }
             await model.destroy( { transaction: t });
             return true

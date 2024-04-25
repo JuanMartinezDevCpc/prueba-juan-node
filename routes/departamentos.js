@@ -41,6 +41,7 @@ export function DepartamentosApi(app) {
 		try {
 			const idDepartamento = req.params.idDepartamento
 			const user = await service.deleteDepartamento(idDepartamento)
+			if(!user) return res.send({ message: 'tiene miembros activos y no puede ser eliminado', data: false })
 			res.send({ message: 'eliminado correctamente', data: user })
 		} catch (error) {
 			next(error)

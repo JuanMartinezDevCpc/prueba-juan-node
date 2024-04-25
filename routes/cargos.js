@@ -41,6 +41,7 @@ export function CargosApi(app) {
 		try {
 			const idCargo = req.params.idCargo
 			const user = await service.deleteCargo(idCargo)
+			if(!user) return res.send({ message: 'el cargo tiene miembros activos y no puede ser eliminado', data: false })
 			res.send({ message: 'eliminado correctamente', data: user })
 		} catch (error) {
 			next(error)
