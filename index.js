@@ -4,11 +4,6 @@ import { config } from "./config/config.js"
 
 async function main() {
     try {
-        // await sequelize.sync({ force: false })
-        //app.listen(config.port, () => {
-        //    console.log("Server on port: " + config.port)
-        //})
-        //const sequelizeInstance = sequelize();
         sequelize.sync({ force: false })
             .then(() => {
                 console.log('Database synced');

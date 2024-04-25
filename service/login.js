@@ -3,10 +3,10 @@ import { User } from "../models/User.js"
 export class Service {
     constructor() { }
 
-    async getUserByEmail({ username }) {
+    async getUserByEmail(email) {
         const result = await User.findOne({
             where: {
-                correo: username
+                email
             }
         })
         return result

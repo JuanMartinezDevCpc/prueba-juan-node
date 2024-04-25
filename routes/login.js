@@ -11,7 +11,7 @@ export function AuthenticationApi(app) {
 
     router.post('/login', loginValidator, async (req, res, next) => {
         try {
-			const user = await service.getUserByEmail(req.body)
+			const user = await service.getUserByEmail(req.body.email)
             if (!user) return res.status(404).json({ errors: { message: "por favor registrese" } })
 
             if (bcrypt.compareSync(req.body.password, user.password)) {
