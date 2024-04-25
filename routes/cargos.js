@@ -7,7 +7,7 @@ export function CargosApi(app) {
 	const service = new Service();
 	app.use('/api', router)
 
-	router.get('/cargos', async (req, res, next) => {
+	router.get('/departamentos', async (req, res, next) => {
 		try {
 			const users = await service.getCargo(req.query)
 			res.send({ message: 'Consultado correctamente', data: users })

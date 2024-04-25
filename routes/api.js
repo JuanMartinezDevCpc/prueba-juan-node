@@ -5,7 +5,7 @@ import { CargosApi } from "./cargos.js"
 
 export function routersApi(app) {
     AuthenticationApi(app)
-    UsersApi(app)
     DepartamentosApi(app)
     CargosApi(app)
+    UsersApi(app)
 }
