@@ -5,7 +5,7 @@ import { Service } from "../service/departamentos.js"
 export function DepartamentosApi(app) {
 	const router = Router();
 	const service = new Service();
-	app.use('/api', verifyAccessTokenMiddleware, router)
+	app.use('/api', router)
 
 	router.get('/departamentos', async (req, res, next) => {
 		try {
@@ -16,7 +16,7 @@ export function DepartamentosApi(app) {
 		}
 	})
 
-	router.post('/departamento' ,async (req, res, next) => {
+	router.post('/departamento', verifyAccessTokenMiddleware, async (req, res, next) => {
 		try {
 			const { body } = req;
 			const user = await service.postDepartamento(body)
@@ -26,7 +26,7 @@ export function DepartamentosApi(app) {
 		}
 	})
 
-	router.put('/user/:idDepartamento/editar', async (req, res, next) => {
+	router.put('/user/:idDepartamento/editar', verifyAccessTokenMiddleware, async (req, res, next) => {
 		try {
 			const { body } = req;
 			const idDepartamento = req.params.idDepartamento
@@ -37,7 +37,7 @@ export function DepartamentosApi(app) {
 		}
 	} )
 
-	router.delete('/productos/:idDepartamento/eliminar', async (req, res, next) => {
+	router.delete('/productos/:idDepartamento/eliminar', verifyAccessTokenMiddleware, async (req, res, next) => {
 		try {
 			const idDepartamento = req.params.idDepartamento
 			const user = await service.deleteDepartamento(idDepartamento)

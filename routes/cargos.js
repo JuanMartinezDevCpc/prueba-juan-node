@@ -5,7 +5,7 @@ import { Service } from "../service/cargos.js"
 export function CargosApi(app) {
 	const router = Router();
 	const service = new Service();
-	app.use('/api', verifyAccessTokenMiddleware, router)
+	app.use('/api', router)
 
 	router.get('/cargos', async (req, res, next) => {
 		try {
@@ -16,7 +16,7 @@ export function CargosApi(app) {
 		}
 	})
 
-	router.post('/departamento' ,async (req, res, next) => {
+	router.post('/departamento', verifyAccessTokenMiddleware,async (req, res, next) => {
 		try {
 			const { body } = req;
 			const user = await service.postCargo(body)
@@ -26,7 +26,7 @@ export function CargosApi(app) {
 		}
 	})
 
-	router.put('/user/:idCargo/editar', async (req, res, next) => {
+	router.put('/user/:idCargo/editar', verifyAccessTokenMiddleware, async (req, res, next) => {
 		try {
 			const { body } = req;
 			const idCargo = req.params.idCargo
@@ -37,7 +37,7 @@ export function CargosApi(app) {
 		}
 	} )
 
-	router.delete('/productos/:idCargo/eliminar', async (req, res, next) => {
+	router.delete('/productos/:idCargo/eliminar', verifyAccessTokenMiddleware, async (req, res, next) => {
 		try {
 			const idCargo = req.params.idCargo
 			const user = await service.deleteCargo(idCargo)
