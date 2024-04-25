@@ -7,7 +7,7 @@ export function CargosApi(app) {
 	const service = new Service();
 	app.use('/api', router)
 
-	router.get('/departamentos', async (req, res, next) => {
+	router.get('/cargos', async (req, res, next) => {
 		try {
 			const users = await service.getCargo(req.query)
 			res.send({ message: 'Consultado correctamente', data: users })
@@ -16,7 +16,7 @@ export function CargosApi(app) {
 		}
 	})
 
-	router.post('/departamento', verifyAccessTokenMiddleware,async (req, res, next) => {
+	router.post('/cargo', verifyAccessTokenMiddleware,async (req, res, next) => {
 		try {
 			const { body } = req;
 			const user = await service.postCargo(body)
@@ -37,7 +37,7 @@ export function CargosApi(app) {
 		}
 	} )
 
-	router.delete('/productos/:idCargo/eliminar', verifyAccessTokenMiddleware, async (req, res, next) => {
+	router.delete('/cargos/:idCargo/eliminar', verifyAccessTokenMiddleware, async (req, res, next) => {
 		try {
 			const idCargo = req.params.idCargo
 			const user = await service.deleteCargo(idCargo)
