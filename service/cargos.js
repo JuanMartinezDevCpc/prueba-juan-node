@@ -1,5 +1,6 @@
 import { sequelize } from "../database/database.js"
 import { Cargo } from "../models/Cargo.js";
+import { Empleado } from "../models/Empleado.js";
 
 export class Service {
     constructor() { }
@@ -38,6 +39,8 @@ export class Service {
     async deleteCargo(id) {
         return await sequelize.transaction(async (t) => {
             const model = await Cargo.findByPk(id)
+            const exits = await Empleado.findOne({where: { idCargo: id }})
+            if(exits) return { status: 400, message: 'el cargo tiene miembros activos y no puede ser eliminado' }
             if (!model) return { status: 400, message: 'el cargo no se encuentra registrado' }
             await model.destroy({ transaction: t });
             return true
