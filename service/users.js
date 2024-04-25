@@ -60,9 +60,8 @@ export class Service {
             const { nombre, email, password, telefono, tipo, idCargo, idDepartamento } = body
             const user = await User.findByPk(id);
             if (!user) return { status: 400, message: 'el usuario no se encuentra registrado' }
-            const person = Persona.findByPk(user?.idPersona);
-            const empleadoData = Empleado.findByPk(user?.idPersona);
-
+            const person = await Persona.findByPk(user?.idPersona);
+            const empleadoData = await Empleado.findByPk(user?.idPersona);
             await user.update({
                 email,
                 password: password ? bcrypt.hashSync(password, 10) : user.password,
@@ -70,12 +69,14 @@ export class Service {
             await person.update({
                 nombre, telefono, tipo, idCargo, idDepartamento
             }, {transaction: t});
-            await empleadoData.update({
-                idCargo,
-                idDepartamento,
-            }, {transaction: t})
+            if(user.tipo == 1 ){
+                await empleadoData.update({
+                    idCargo,
+                    idDepartamento,
+                }, {transaction: t})
+            }
 
-            return { data: true }
+            return { data: user }
         })
     }
 

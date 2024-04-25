@@ -26,7 +26,7 @@ export function CargosApi(app) {
 		}
 	})
 
-	router.put('/user/:idCargo/editar', verifyAccessTokenMiddleware, async (req, res, next) => {
+	router.put('/cargo/:idCargo/editar', verifyAccessTokenMiddleware, async (req, res, next) => {
 		try {
 			const { body } = req;
 			const idCargo = req.params.idCargo
