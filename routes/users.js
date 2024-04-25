@@ -5,9 +5,9 @@ import { Service } from "../service/users.js"
 export function UsersApi(app) {
 	const router = Router();
 	const service = new Service();
-	app.use('/api', verifyAccessTokenMiddleware, router)
+	app.use('/api', router)
 
-	router.get('/users', async (req, res, next) => {
+	router.get('/users', verifyAccessTokenMiddleware, async (req, res, next) => {
 		try {
 			const users = await service.getUsers(req.query)
 			res.send({ message: 'Consultado correctamente', data: users })
@@ -16,7 +16,7 @@ export function UsersApi(app) {
 		}
 	})
 
-	router.post('/user' ,async (req, res, next) => {
+	router.post('/user' , verifyAccessTokenMiddleware, async (req, res, next) => {
 		try {
 			const { body } = req;
 			const user = await service.postUser(body)
@@ -26,7 +26,7 @@ export function UsersApi(app) {
 		}
 	})
 
-	router.put('/user/:idUser/editar', async (req, res, next) => {
+	router.put('/user/:idUser/editar', verifyAccessTokenMiddleware, async (req, res, next) => {
 		try {
 			const { body } = req;
 			const idUser = req.params.idUser
@@ -37,7 +37,7 @@ export function UsersApi(app) {
 		}
 	} )
 
-	router.delete('/productos/:idUser/eliminar', async (req, res, next) => {
+	router.delete('/productos/:idUser/eliminar', verifyAccessTokenMiddleware, async (req, res, next) => {
 		try {
 			const idUser = req.params.idUser
 			const user = await service.deleteUser(idUser)
