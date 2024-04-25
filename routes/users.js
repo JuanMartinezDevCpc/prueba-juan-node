@@ -37,7 +37,7 @@ export function UsersApi(app) {
 		}
 	} )
 
-	router.delete('/productos/:idUser/eliminar', verifyAccessTokenMiddleware, async (req, res, next) => {
+	router.delete('/user/:idUser/eliminar', verifyAccessTokenMiddleware, async (req, res, next) => {
 		try {
 			const idUser = req.params.idUser
 			const user = await service.deleteUser(idUser)
