@@ -22,7 +22,7 @@ export class Service {
     }
 
     async putContratos(body, id) {
-        return await sequelize().transaction(async (t) => {
+        return await sequelize.transaction(async (t) => {
             const { nombre, descripcion, fechaInicio, fechaFin, idResponsable} = body
             const contrato = await Contrato.findByPk(id);
             if (!contrato) return { status: 400, message: 'el contrato no se encuentra registrado' }
@@ -36,7 +36,7 @@ export class Service {
     }
 
     async deleteContrato(id) {
-        return await sequelize().transaction(async (t) => {
+        return await sequelize.transaction(async (t) => {
             const model = await Contrato.findByPk(id)
             if (!model) return { status: 400, message: 'el contrato no se encuentra registrado' }
             await model.destroy( { transaction: t });

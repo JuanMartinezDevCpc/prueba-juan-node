@@ -26,7 +26,7 @@ export function DepartamentosApi(app) {
 		}
 	})
 
-	router.put('/user/:idDepartamento/editar', verifyAccessTokenMiddleware, async (req, res, next) => {
+	router.put('/departamento/:idDepartamento/editar', verifyAccessTokenMiddleware, async (req, res, next) => {
 		try {
 			const { body } = req;
 			const idDepartamento = req.params.idDepartamento
@@ -37,7 +37,7 @@ export function DepartamentosApi(app) {
 		}
 	} )
 
-	router.delete('/productos/:idDepartamento/eliminar', verifyAccessTokenMiddleware, async (req, res, next) => {
+	router.delete('/departamento/:idDepartamento/eliminar', verifyAccessTokenMiddleware, async (req, res, next) => {
 		try {
 			const idDepartamento = req.params.idDepartamento
 			const user = await service.deleteDepartamento(idDepartamento)

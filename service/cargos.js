@@ -22,7 +22,7 @@ export class Service {
     }
 
     async putCargo(body, id) {
-        return await sequelize().transaction(async (t) => {
+        return await sequelize.transaction(async (t) => {
             const { nombre, descripcion } = body
             const cargo = await Cargo.findByPk(id);
             if (!cargo) return { status: 400, message: 'el cargo no se encuentra registrado' }
@@ -36,7 +36,7 @@ export class Service {
     }
 
     async deleteCargo(id) {
-        return await sequelize().transaction(async (t) => {
+        return await sequelize.transaction(async (t) => {
             const model = await Cargo.findByPk(id)
             if (!model) return { status: 400, message: 'el cargo no se encuentra registrado' }
             await model.destroy({ transaction: t });

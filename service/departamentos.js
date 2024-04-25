@@ -22,7 +22,7 @@ export class Service {
     }
 
     async putDepartamento(body, id) {
-        return await sequelize().transaction(async (t) => {
+        return await sequelize.transaction(async (t) => {
             const { nombre, descripcion} = body
             const departamento = await Departamento.findByPk(id);
             if (!departamento) return { status: 400, message: 'el departamento no se encuentra registrado' }
@@ -36,7 +36,7 @@ export class Service {
     }
 
     async deleteDepartamento(id) {
-        return await sequelize().transaction(async (t) => {
+        return await sequelize.transaction(async (t) => {
             const model = await Departamento.findByPk(id)
             if (!model) return { status: 400, message: 'el departamento no se encuentra registrado' }
             await model.destroy( { transaction: t });
